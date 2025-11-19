@@ -1,10 +1,6 @@
-# Proposal Summary
-
 ### **Maximizing House Party Hosting Satisfaction**
 
-**Group 15**
-
-**Member:** Chen-Yen Wu, Jinghong Yang, Yuting Wan
+**Creators:** Chen-Yen Wu, Jinghong Yang, Yuting Wan
 
 ### **Problem Definition:**
 
