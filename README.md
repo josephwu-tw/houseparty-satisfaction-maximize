@@ -1,6 +1,6 @@
 # Proposal Summary
 
-**Maximizing House Party Hosting Satisfaction**
+### **Maximizing House Party Hosting Satisfaction**
 
 **Group 15**
 
