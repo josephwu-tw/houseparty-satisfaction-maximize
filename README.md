@@ -1,9 +1,9 @@
-### **Maximizing House Party Hosting Satisfaction**
+# **Maximizing House Party Hosting Satisfaction**
 
 **Creators:** Chen-Yen Wu, Jinghong Yang, Yuting Wan
 
+## **Project Summary
 ### **Problem Definition:**
-
 	  
 Joseph \-  
 When hosting a house party, the host might need to consider which type of snacks to prepare and how many to purchase within a limited budget. Besides, each friend has a different level of intimacy with the host. Therefore, we decided to create a tool to help people plan their house party.
@@ -65,7 +65,7 @@ It involves breaking the problem into smaller parts. Each time we should decide 
 Maximize i(satisfaction of snacks)i, subject to icostbudget  
 We use DP’s state definition and transition formula to find the best combination, which is faster than trying out all possibilities with brute-force.
 
-# App Design
+## App Design
 
 ### **Data Structure Example**
 
