@@ -1,6 +1,7 @@
 # **Maximizing House Party Hosting Satisfaction**
 
 **Creators:** Chen-Yen Wu, Jinghong Yang, Yuting Wan
+**Python Version:** 3.11
 
 ## **Project Summary**
 ### **Problem Definition:**
