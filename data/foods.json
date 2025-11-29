@@ -1,0 +1,64 @@
+{
+  "foods": [
+    {
+      "name": "Fried Chicken",
+      "cost": 5.7,
+      "category": "main",
+      "tags": []
+    },
+    {
+      "name": "Chips",
+      "cost": 2.99,
+      "category": "snack",
+      "tags": [
+        "vegetarian"
+      ]
+    },
+    {
+      "name": "Sandwich",
+      "cost": 4.0,
+      "category": "main",
+      "tags": []
+    },
+    {
+      "name": "Cookies",
+      "cost": 1.99,
+      "category": "dessert",
+      "tags": [
+        "vegetarian"
+      ]
+    },
+    {
+      "name": "Candy",
+      "cost": 0.99,
+      "category": "dessert",
+      "tags": [
+        "vegetarian"
+      ]
+    },
+    {
+      "name": "Soda",
+      "cost": 2.49,
+      "category": "drink",
+      "tags": [
+        "vegetarian"
+      ]
+    },
+    {
+      "name": "Juice",
+      "cost": 2.79,
+      "category": "drink",
+      "tags": [
+        "vegetarian"
+      ]
+    },
+    {
+      "name": "Tea",
+      "cost": 1.89,
+      "category": "drink",
+      "tags": [
+        "vegetarian"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,318 @@
+{
+  "friends": [
+    {
+      "name": "David Rodriguez",
+      "preferences": {
+        "Fried Chicken": 5,
+        "Chips": 1,
+        "Sandwich": 5,
+        "Cookies": 5,
+        "Candy": 1,
+        "Soda": 5,
+        "Juice": 1,
+        "Tea": 1
+      },
+      "intimacy": 5,
+      "dietary_restrictions": []
+    },
+    {
+      "name": "Alexander Young",
+      "preferences": {
+        "Fried Chicken": 5,
+        "Chips": 3,
+        "Sandwich": 2,
+        "Cookies": 4,
+        "Candy": 5,
+        "Soda": 4,
+        "Juice": 3,
+        "Tea": 4
+      },
+      "intimacy": 5,
+      "dietary_restrictions": [
+        "vegan"
+      ]
+    },
+    {
+      "name": "Wyatt Johnson",
+      "preferences": {
+        "Fried Chicken": 5,
+        "Chips": 2,
+        "Sandwich": 5,
+        "Cookies": 4,
+        "Candy": 4,
+        "Soda": 2,
+        "Juice": 3,
+        "Tea": 5
+      },
+      "intimacy": 8,
+      "dietary_restrictions": []
+    },
+    {
+      "name": "Penelope Hernandez",
+      "preferences": {
+        "Fried Chicken": 5,
+        "Chips": 3,
+        "Sandwich": 2,
+        "Cookies": 5,
+        "Candy": 4,
+        "Soda": 4,
+        "Juice": 3,
+        "Tea": 3
+      },
+      "intimacy": 5,
+      "dietary_restrictions": [
+        "gluten-free"
+      ]
+    },
+    {
+      "name": "David Perez",
+      "preferences": {
+        "Fried Chicken": 1,
+        "Chips": 2,
+        "Sandwich": 5,
+        "Cookies": 1,
+        "Candy": 3,
+        "Soda": 4,
+        "Juice": 2,
+        "Tea": 1
+      },
+      "intimacy": 5,
+      "dietary_restrictions": [
+        "gluten-free"
+      ]
+    },
+    {
+      "name": "Emily Campbell",
+      "preferences": {
+        "Fried Chicken": 5,
+        "Chips": 1,
+        "Sandwich": 4,
+        "Cookies": 2,
+        "Candy": 3,
+        "Soda": 1,
+        "Juice": 3,
+        "Tea": 2
+      },
+      "intimacy": 4,
+      "dietary_restrictions": []
+    },
+    {
+      "name": "Morgan Taylor",
+      "preferences": {
+        "Fried Chicken": 3,
+        "Chips": 5,
+        "Sandwich": 4,
+        "Cookies": 5,
+        "Candy": 4,
+        "Soda": 2,
+        "Juice": 5,
+        "Tea": 3
+      },
+      "intimacy": 4,
+      "dietary_restrictions": [
+        "gluten-free"
+      ]
+    },
+    {
+      "name": "Aria Adams",
+      "preferences": {
+        "Fried Chicken": 3,
+        "Chips": 4,
+        "Sandwich": 5,
+        "Cookies": 5,
+        "Candy": 5,
+        "Soda": 4,
+        "Juice": 5,
+        "Tea": 5
+      },
+      "intimacy": 7,
+      "dietary_restrictions": [
+        "vegan"
+      ]
+    },
+    {
+      "name": "Jordan Thompson",
+      "preferences": {
+        "Fried Chicken": 4,
+        "Chips": 2,
+        "Sandwich": 4,
+        "Cookies": 5,
+        "Candy": 4,
+        "Soda": 4,
+        "Juice": 3,
+        "Tea": 4
+      },
+      "intimacy": 5,
+      "dietary_restrictions": []
+    },
+    {
+      "name": "Alex Smith",
+      "preferences": {
+        "Fried Chicken": 4,
+        "Chips": 1,
+        "Sandwich": 5,
+        "Cookies": 3,
+        "Candy": 4,
+        "Soda": 5,
+        "Juice": 1,
+        "Tea": 3
+      },
+      "intimacy": 2,
+      "dietary_restrictions": [
+        "vegetarian"
+      ]
+    },
+    {
+      "name": "Liam Nelson",
+      "preferences": {
+        "Fried Chicken": 5,
+        "Chips": 5,
+        "Sandwich": 5,
+        "Cookies": 5,
+        "Candy": 5,
+        "Soda": 3,
+        "Juice": 5,
+        "Tea": 5
+      },
+      "intimacy": 4,
+      "dietary_restrictions": []
+    },
+    {
+      "name": "Matthew White",
+      "preferences": {
+        "Fried Chicken": 4,
+        "Chips": 5,
+        "Sandwich": 4,
+        "Cookies": 2,
+        "Candy": 2,
+        "Soda": 4,
+        "Juice": 5,
+        "Tea": 2
+      },
+      "intimacy": 5,
+      "dietary_restrictions": []
+    },
+    {
+      "name": "Henry Allen",
+      "preferences": {
+        "Fried Chicken": 5,
+        "Chips": 5,
+        "Sandwich": 4,
+        "Cookies": 5,
+        "Candy": 2,
+        "Soda": 3,
+        "Juice": 3,
+        "Tea": 3
+      },
+      "intimacy": 10,
+      "dietary_restrictions": []
+    },
+    {
+      "name": "Matthew Robinson",
+      "preferences": {
+        "Fried Chicken": 3,
+        "Chips": 5,
+        "Sandwich": 2,
+        "Cookies": 2,
+        "Candy": 2,
+        "Soda": 3,
+        "Juice": 3,
+        "Tea": 5
+      },
+      "intimacy": 5,
+      "dietary_restrictions": []
+    },
+    {
+      "name": "Charlie Thompson",
+      "preferences": {
+        "Fried Chicken": 5,
+        "Chips": 4,
+        "Sandwich": 3,
+        "Cookies": 2,
+        "Candy": 4,
+        "Soda": 4,
+        "Juice": 4,
+        "Tea": 5
+      },
+      "intimacy": 6,
+      "dietary_restrictions": []
+    },
+    {
+      "name": "Aiden Lopez",
+      "preferences": {
+        "Fried Chicken": 4,
+        "Chips": 4,
+        "Sandwich": 5,
+        "Cookies": 2,
+        "Candy": 5,
+        "Soda": 3,
+        "Juice": 5,
+        "Tea": 3
+      },
+      "intimacy": 4,
+      "dietary_restrictions": []
+    },
+    {
+      "name": "Evelyn King",
+      "preferences": {
+        "Fried Chicken": 4,
+        "Chips": 3,
+        "Sandwich": 2,
+        "Cookies": 4,
+        "Candy": 3,
+        "Soda": 4,
+        "Juice": 5,
+        "Tea": 2
+      },
+      "intimacy": 10,
+      "dietary_restrictions": []
+    },
+    {
+      "name": "Ava Martinez",
+      "preferences": {
+        "Fried Chicken": 4,
+        "Chips": 1,
+        "Sandwich": 2,
+        "Cookies": 4,
+        "Candy": 3,
+        "Soda": 5,
+        "Juice": 4,
+        "Tea": 5
+      },
+      "intimacy": 5,
+      "dietary_restrictions": [
+        "vegan"
+      ]
+    },
+    {
+      "name": "Alex Green",
+      "preferences": {
+        "Fried Chicken": 4,
+        "Chips": 1,
+        "Sandwich": 4,
+        "Cookies": 1,
+        "Candy": 3,
+        "Soda": 3,
+        "Juice": 2,
+        "Tea": 5
+      },
+      "intimacy": 5,
+      "dietary_restrictions": []
+    },
+    {
+      "name": "Casey Nelson",
+      "preferences": {
+        "Fried Chicken": 2,
+        "Chips": 4,
+        "Sandwich": 5,
+        "Cookies": 4,
+        "Candy": 3,
+        "Soda": 4,
+        "Juice": 5,
+        "Tea": 5
+      },
+      "intimacy": 7,
+      "dietary_restrictions": []
+    }
+  ]
+}
