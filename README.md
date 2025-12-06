@@ -2,22 +2,23 @@
 
 A Python application that optimizes house party planning by balancing guest satisfaction, budget constraints, and social intimacy using combinatorial optimization.
 
-## Contributors
-- Chen-Yen, Wu
-- Jinghong, Yang
-- Yuting, Wan
+### Contributors
+Chen-Yen, Wu  
+Jinghong, Yang  
+Yuting, Wan  
 
-**Python Version:** 3.11
+### Python Version
+3.11.13
 
 ## 📋 Table of Contents
 
 - [Overview](#overview)
 - [Features](#features)
+- [Algorithm Design](#algorithm-design)
+- [Data Models](#data-models)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Algorithm Design](#algorithm-design)
 - [Project Structure](#project-structure)
-- [Data Models](#data-models)
 
 ## Overview
 
@@ -47,6 +48,37 @@ Find:
 - **Random Data Generator**: Generate realistic test datasets
 - **Data Visualization**: Matplotlib/Seaborn charts for analysis
 - **Interactive CLI**: User-friendly menu-driven interface
+
+## Data Models
+
+### Friend
+| Field | Type | Description |
+|-------|------|-------------|
+| name | string | Friend's name |
+| preferences | dict | Food → Rating (1-5) |
+| intimacy | int | Closeness level (1-10) |
+| dietary_restrictions | list | e.g., ["vegetarian"] |
+
+### Food
+| Field | Type | Description |
+|-------|------|-------------|
+| name | string | Item name |
+| cost | float | Price per person |
+| category | string | main/snack/dessert/drink |
+
+### Sample Data
+
+**Friends:**
+| Name | Fried Chicken | Chips | Sandwich | Cookies | Candy | Soda | Juice | Tea | Intimacy |
+|------|---------------|-------|----------|---------|-------|------|-------|-----|----------|
+| Tom | 5 | 3 | 4 | 2 | 1 | 5 | 3 | 1 | 7 |
+| Ariel | 3 | 2 | 5 | 3 | 4 | 2 | 3 | 4 | 6 |
+| Bob | 4 | 5 | 3 | 4 | 3 | 4 | 2 | 2 | 8 |
+
+**Food Prices:**
+| Item | Fried Chicken | Chips | Sandwich | Cookies | Candy | Soda | Juice | Tea |
+|------|---------------|-------|----------|---------|-------|------|-------|-----|
+| Cost | $5.70 | $2.99 | $4.00 | $1.99 | $0.99 | $2.49 | $2.79 | $1.89 |
 
 ## Installation
 
@@ -106,27 +138,7 @@ Satisfaction: 126.0
 Host Happiness: 4.52
 ```
 
-## Algorithm Design
-
-### Why Not Dynamic Programming?
-
-While this problem resembles the 0-1 Knapsack Problem, **classical DP does not apply** to the guest selection phase. Here's why:
-
-#### The Core Issue: Non-Independent Subproblems
-
-In standard 0-1 Knapsack, each item has a **fixed value independent of other selected items**. However, in our problem, the value of inviting a guest **changes based on who else is invited** because the optimal menu changes with different guest combinations. This violates DP's **optimal substructure** requirement.
-
-For DP to work, we need:
-```
-Value(guest_i | guests_selected) = constant
-```
-
-But in reality:
-```
-Value(guest_i | guests_selected) = f(menu_optimization(guests_selected ∪ {guest_i}))
-```
-
-The menu optimization is a **nested optimization** that depends on the full guest combination.
+## Project Structure
 
 ### Our Approach: Multi-Objective Evaluation
 
@@ -276,7 +288,7 @@ The normalization by 10 ensures all components are on comparable scales.
 
 ---
 
-### Complete Evaluation Example
+### Evaluation Example
 
 **Given:**
 - Guests: {Tom, Bob, Mike} with intimacy levels {7, 8, 9}
@@ -310,21 +322,85 @@ $H = 1.47 + 0.61 + 0.96 = 3.04$
 
 ### Time Complexity Analysis
 
+#### Why Not Dynamic Programming?
+
+While this problem resembles the 0-1 Knapsack Problem, **classical DP does not apply** to the guest selection phase.
+
+**The Core Issue: Non-Independent Subproblems**
+
+In standard 0-1 Knapsack, each item has a **fixed value independent of other selected items**:
+
+```
+0/1 Knapsack:
+  - Diamond is worth $1000 regardless of what else is in knapsack
+  - Adding Ruby doesn't change Diamond's value
+  
+  dp[i][w] = max(
+      dp[i-1][w],                         # Don't take item i
+      dp[i-1][w-weight[i]] + value[i]     # Take item i (value[i] is CONSTANT)
+  )
+  
+  Optimal substructure: ✓
+```
+
+However, in our problem, guest values are **interdependent**:
+
+```
+Guest Selection:
+  - Inviting Alice changes the optimal menu
+  - Different menu changes Bob's satisfaction
+  - Bob's satisfaction affects overall happiness
+  
+  dp[i][k] = max(
+      dp[i-1][k],
+      dp[i-1][k-1] + value(friend[i], ???)  # Value depends on WHO ELSE is invited!
+  )
+  
+  Optimal substructure: ✗
+```
+
+**Counter-Example:**
+
+Consider 3 friends choosing 2 guests:
+- Alice: intimacy=9, loves Pizza (5), hates Pasta (1)
+- Bob: intimacy=8, loves Pasta (5), hates Pizza (1)  
+- Carol: intimacy=7, likes both Pizza (4) and Pasta (4)
+
+| Guest Combo | Best Menu | Avg Satisfaction | Intimacy | Result |
+|-------------|-----------|------------------|----------|--------|
+| {Alice, Bob} | Conflict! | 3.0 (compromise) | 17 | Moderate |
+| {Alice, Carol} | Pizza | 4.5 (synergy!) | 16 | **Better!** |
+
+Alice's "value" when paired with Bob ≠ Alice's "value" when paired with Carol. The value depends on **who else is invited**, violating DP's optimal substructure requirement.
+
+---
+
 #### Why `max_guests` Parameter is Critical
 
-The `max_guests` parameter transforms the algorithm from **exponential** to **polynomial** time complexity:
+Since DP doesn't apply, we use exhaustive enumeration. The `max_guests` parameter transforms this from **exponential** to **polynomial** time:
 
-| Scenario | Complexity | With n=50 friends |
-|----------|------------|-------------------|
-| No limit (k=n) | $O(2^n)$ | 1,125,899,906,842,624 combinations |
-| With limit k=8 | $O(n^k)$ | 536,878,650 combinations |
-| **Speedup** | | **~2,097,152× faster** |
-
-Without `max_guests`, we must evaluate all $2^n$ subsets of friends. With `max_guests = k`, we only evaluate:
+Without `max_guests`, we must evaluate all $2^n$ subsets. With `max_guests = k`, we only evaluate:
 
 $\sum_{i=1}^{k} C(n,i) = C(n,1) + C(n,2) + ... + C(n,k) = O(n^k)$
 
-For fixed k, this is **polynomial** in n, making the algorithm practical for real-world use.
+For fixed k, this is **polynomial** in n, making the algorithm practical.
+
+---
+
+#### Complexity Comparison
+
+| Approach | Time Complexity | With n=50 | Optimal? | Applicable? |
+|----------|-----------------|-----------|----------|-------------|
+| Brute Force (no limit) | $O(2^n \cdot f^3 \cdot d^2)$ | ~1.1 quadrillion | ✓ | ❌ Too slow |
+| **Our Approach (k=8)** | $O(n^k \cdot f^3 \cdot d^2)$ | ~537 million | ✓* | ✅ Practical |
+| DP (if applicable) | $O(n \cdot B)$ | ~50 × budget | ✓ | ❌ Substructure violated |
+| Greedy | $O(n \log n)$ | Instant | ✗ | ✅ For n > 100 |
+
+*Optimal within k-guest constraint
+
+**Speedup with max_guests:** From $2^{50}$ to $C(50,8)$ = **~2,097,152× faster!**
+
+---
 
 #### Complexity Breakdown
 
@@ -337,6 +413,8 @@ For fixed k, this is **polynomial** in n, making the algorithm practical for rea
 
 Where: n = friends, k = max_guests, f = foods, d = drinks
 
+---
+
 #### Practical Performance
 
 | Friends (n) | k=8 Combinations | Approx. Time |
@@ -345,6 +423,9 @@ Where: n = friends, k = max_guests, f = foods, d = drinks
 | 20          | 125,970          | ~2 sec       |
 | 30          | 5,852,925        | ~30 sec      |
 | 50          | 536,878,650      | ~15 min      |
+| 100         | 1.86 × 10^11     | Not feasible |
+
+For n > 100 friends, consider using greedy or local search approximation algorithms.
 
 ## Project Structure
 
@@ -376,37 +457,6 @@ houseparty-optimizer/
 ├── data/                   # JSON storage
 └── exports/                # CSV/report exports
 ```
-
-## Data Models
-
-### Friend
-| Field | Type | Description |
-|-------|------|-------------|
-| name | string | Friend's name |
-| preferences | dict | Food → Rating (1-5) |
-| intimacy | int | Closeness level (1-10) |
-| dietary_restrictions | list | e.g., ["vegetarian"] |
-
-### Food
-| Field | Type | Description |
-|-------|------|-------------|
-| name | string | Item name |
-| cost | float | Price per person |
-| category | string | main/snack/dessert/drink |
-
-### Sample Data
-
-**Friends:**
-| Name | Fried Chicken | Chips | Sandwich | Cookies | Candy | Soda | Juice | Tea | Intimacy |
-|------|---------------|-------|----------|---------|-------|------|-------|-----|----------|
-| Tom | 5 | 3 | 4 | 2 | 1 | 5 | 3 | 1 | 7 |
-| Ariel | 3 | 2 | 5 | 3 | 4 | 2 | 3 | 4 | 6 |
-| Bob | 4 | 5 | 3 | 4 | 3 | 4 | 2 | 2 | 8 |
-
-**Food Prices:**
-| Item | Fried Chicken | Chips | Sandwich | Cookies | Candy | Soda | Juice | Tea |
-|------|---------------|-------|----------|---------|-------|------|-------|-----|
-| Cost | $5.70 | $2.99 | $4.00 | $1.99 | $0.99 | $2.49 | $2.79 | $1.89 |
 
 ## License
 
