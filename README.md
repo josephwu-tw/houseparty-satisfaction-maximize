@@ -3,8 +3,9 @@
 A Python application that optimizes house party planning by balancing guest satisfaction, budget constraints, and social intimacy using combinatorial optimization.
 
 ## Contributors
-
-**Chen-Yen Wu, Jinghong Yang, Yuting Wan**
+- Chen-Yen, Wu
+- Jinghong, Yang
+- Yuting, Wan
 
 **Python Version:** 3.11
 
