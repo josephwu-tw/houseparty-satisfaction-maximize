@@ -309,6 +309,24 @@ $H = 1.47 + 0.61 + 0.96 = 3.04$
 
 ### Time Complexity Analysis
 
+#### Why `max_guests` Parameter is Critical
+
+The `max_guests` parameter transforms the algorithm from **exponential** to **polynomial** time complexity:
+
+| Scenario | Complexity | With n=50 friends |
+|----------|------------|-------------------|
+| No limit (k=n) | $O(2^n)$ | 1,125,899,906,842,624 combinations |
+| With limit k=8 | $O(n^k)$ | 536,878,650 combinations |
+| **Speedup** | | **~2,097,152× faster** |
+
+Without `max_guests`, we must evaluate all $2^n$ subsets of friends. With `max_guests = k`, we only evaluate:
+
+$\sum_{i=1}^{k} C(n,i) = C(n,1) + C(n,2) + ... + C(n,k) = O(n^k)$
+
+For fixed k, this is **polynomial** in n, making the algorithm practical for real-world use.
+
+#### Complexity Breakdown
+
 | Component | Complexity |
 |-----------|------------|
 | Guest combinations | $O(n^k)$ for max_guests = k |
@@ -317,6 +335,8 @@ $H = 1.47 + 0.61 + 0.96 = 3.04$
 | **Overall** | $O(n^k \cdot f^3 \cdot d^2)$ |
 
 Where: n = friends, k = max_guests, f = foods, d = drinks
+
+#### Practical Performance
 
 | Friends (n) | k=8 Combinations | Approx. Time |
 |-------------|------------------|--------------|
