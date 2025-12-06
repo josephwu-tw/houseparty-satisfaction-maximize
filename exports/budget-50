@@ -1,0 +1,405 @@
+{
+  "total_recommendations": 10,
+  "recommendations": [
+    {
+      "guest_list": [
+        "Alexander Young",
+        "Wyatt Johnson",
+        "Penelope Hernandez",
+        "David Perez",
+        "Morgan Taylor",
+        "Aria Adams",
+        "Jordan Thompson",
+        "Liam Nelson",
+        "Matthew White",
+        "Henry Allen",
+        "Matthew Robinson",
+        "Charlie Thompson",
+        "Aiden Lopez",
+        "Evelyn King",
+        "Ava Martinez",
+        "Alex Green",
+        "Casey Nelson"
+      ],
+      "recommended_foods": [
+        "Candy",
+        "Tea"
+      ],
+      "food_costs": {
+        "Candy": 0.99,
+        "Tea": 1.89
+      },
+      "total_cost": 48.96,
+      "max_satisfaction": 727.0,
+      "total_intimacy": 100,
+      "cost_savings": 1.04,
+      "efficiency_score": 14.85,
+      "host_happiness": 5.67,
+      "num_guests": 17,
+      "food_categories": {
+        "Candy": "dessert",
+        "Tea": "drink"
+      }
+    },
+    {
+      "guest_list": [
+        "Alexander Young",
+        "Wyatt Johnson",
+        "Penelope Hernandez",
+        "Emily Campbell",
+        "Morgan Taylor",
+        "Aria Adams",
+        "Jordan Thompson",
+        "Liam Nelson",
+        "Matthew White",
+        "Henry Allen",
+        "Matthew Robinson",
+        "Charlie Thompson",
+        "Aiden Lopez",
+        "Evelyn King",
+        "Ava Martinez",
+        "Alex Green",
+        "Casey Nelson"
+      ],
+      "recommended_foods": [
+        "Candy",
+        "Tea"
+      ],
+      "food_costs": {
+        "Candy": 0.99,
+        "Tea": 1.89
+      },
+      "total_cost": 48.96,
+      "max_satisfaction": 727.0,
+      "total_intimacy": 99,
+      "cost_savings": 1.04,
+      "efficiency_score": 14.85,
+      "host_happiness": 5.65,
+      "num_guests": 17,
+      "food_categories": {
+        "Candy": "dessert",
+        "Tea": "drink"
+      }
+    },
+    {
+      "guest_list": [
+        "Alexander Young",
+        "Wyatt Johnson",
+        "Penelope Hernandez",
+        "David Perez",
+        "Emily Campbell",
+        "Morgan Taylor",
+        "Aria Adams",
+        "Jordan Thompson",
+        "Liam Nelson",
+        "Henry Allen",
+        "Matthew Robinson",
+        "Charlie Thompson",
+        "Aiden Lopez",
+        "Evelyn King",
+        "Ava Martinez",
+        "Alex Green",
+        "Casey Nelson"
+      ],
+      "recommended_foods": [
+        "Candy",
+        "Tea"
+      ],
+      "food_costs": {
+        "Candy": 0.99,
+        "Tea": 1.89
+      },
+      "total_cost": 48.96,
+      "max_satisfaction": 727.0,
+      "total_intimacy": 99,
+      "cost_savings": 1.04,
+      "efficiency_score": 14.85,
+      "host_happiness": 5.65,
+      "num_guests": 17,
+      "food_categories": {
+        "Candy": "dessert",
+        "Tea": "drink"
+      }
+    },
+    {
+      "guest_list": [
+        "Alexander Young",
+        "Wyatt Johnson",
+        "Penelope Hernandez",
+        "David Perez",
+        "Emily Campbell",
+        "Aria Adams",
+        "Jordan Thompson",
+        "Liam Nelson",
+        "Matthew White",
+        "Henry Allen",
+        "Matthew Robinson",
+        "Charlie Thompson",
+        "Aiden Lopez",
+        "Evelyn King",
+        "Ava Martinez",
+        "Alex Green",
+        "Casey Nelson"
+      ],
+      "recommended_foods": [
+        "Candy",
+        "Tea"
+      ],
+      "food_costs": {
+        "Candy": 0.99,
+        "Tea": 1.89
+      },
+      "total_cost": 48.96,
+      "max_satisfaction": 719.0,
+      "total_intimacy": 100,
+      "cost_savings": 1.04,
+      "efficiency_score": 14.69,
+      "host_happiness": 5.63,
+      "num_guests": 17,
+      "food_categories": {
+        "Candy": "dessert",
+        "Tea": "drink"
+      }
+    },
+    {
+      "guest_list": [
+        "David Rodriguez",
+        "Alexander Young",
+        "Wyatt Johnson",
+        "Penelope Hernandez",
+        "Morgan Taylor",
+        "Aria Adams",
+        "Jordan Thompson",
+        "Liam Nelson",
+        "Matthew White",
+        "Henry Allen",
+        "Matthew Robinson",
+        "Charlie Thompson",
+        "Aiden Lopez",
+        "Evelyn King",
+        "Ava Martinez",
+        "Alex Green",
+        "Casey Nelson"
+      ],
+      "recommended_foods": [
+        "Candy",
+        "Tea"
+      ],
+      "food_costs": {
+        "Candy": 0.99,
+        "Tea": 1.89
+      },
+      "total_cost": 48.96,
+      "max_satisfaction": 717.0,
+      "total_intimacy": 100,
+      "cost_savings": 1.04,
+      "efficiency_score": 14.64,
+      "host_happiness": 5.62,
+      "num_guests": 17,
+      "food_categories": {
+        "Candy": "dessert",
+        "Tea": "drink"
+      }
+    },
+    {
+      "guest_list": [
+        "David Rodriguez",
+        "Alexander Young",
+        "Wyatt Johnson",
+        "Penelope Hernandez",
+        "David Perez",
+        "Morgan Taylor",
+        "Aria Adams",
+        "Jordan Thompson",
+        "Liam Nelson",
+        "Henry Allen",
+        "Matthew Robinson",
+        "Charlie Thompson",
+        "Aiden Lopez",
+        "Evelyn King",
+        "Ava Martinez",
+        "Alex Green",
+        "Casey Nelson"
+      ],
+      "recommended_foods": [
+        "Candy",
+        "Tea"
+      ],
+      "food_costs": {
+        "Candy": 0.99,
+        "Tea": 1.89
+      },
+      "total_cost": 48.96,
+      "max_satisfaction": 717.0,
+      "total_intimacy": 100,
+      "cost_savings": 1.04,
+      "efficiency_score": 14.64,
+      "host_happiness": 5.62,
+      "num_guests": 17,
+      "food_categories": {
+        "Candy": "dessert",
+        "Tea": "drink"
+      }
+    },
+    {
+      "guest_list": [
+        "Alexander Young",
+        "Wyatt Johnson",
+        "Penelope Hernandez",
+        "David Perez",
+        "Emily Campbell",
+        "Morgan Taylor",
+        "Aria Adams",
+        "Jordan Thompson",
+        "Liam Nelson",
+        "Matthew White",
+        "Henry Allen",
+        "Matthew Robinson",
+        "Charlie Thompson",
+        "Evelyn King",
+        "Ava Martinez",
+        "Alex Green",
+        "Casey Nelson"
+      ],
+      "recommended_foods": [
+        "Candy",
+        "Tea"
+      ],
+      "food_costs": {
+        "Candy": 0.99,
+        "Tea": 1.89
+      },
+      "total_cost": 48.96,
+      "max_satisfaction": 715.0,
+      "total_intimacy": 100,
+      "cost_savings": 1.04,
+      "efficiency_score": 14.6,
+      "host_happiness": 5.61,
+      "num_guests": 17,
+      "food_categories": {
+        "Candy": "dessert",
+        "Tea": "drink"
+      }
+    },
+    {
+      "guest_list": [
+        "David Rodriguez",
+        "Alexander Young",
+        "Wyatt Johnson",
+        "Penelope Hernandez",
+        "Emily Campbell",
+        "Morgan Taylor",
+        "Aria Adams",
+        "Jordan Thompson",
+        "Liam Nelson",
+        "Henry Allen",
+        "Matthew Robinson",
+        "Charlie Thompson",
+        "Aiden Lopez",
+        "Evelyn King",
+        "Ava Martinez",
+        "Alex Green",
+        "Casey Nelson"
+      ],
+      "recommended_foods": [
+        "Candy",
+        "Tea"
+      ],
+      "food_costs": {
+        "Candy": 0.99,
+        "Tea": 1.89
+      },
+      "total_cost": 48.96,
+      "max_satisfaction": 717.0,
+      "total_intimacy": 99,
+      "cost_savings": 1.04,
+      "efficiency_score": 14.64,
+      "host_happiness": 5.6,
+      "num_guests": 17,
+      "food_categories": {
+        "Candy": "dessert",
+        "Tea": "drink"
+      }
+    },
+    {
+      "guest_list": [
+        "David Rodriguez",
+        "Alexander Young",
+        "Wyatt Johnson",
+        "Penelope Hernandez",
+        "David Perez",
+        "Aria Adams",
+        "Jordan Thompson",
+        "Liam Nelson",
+        "Matthew White",
+        "Henry Allen",
+        "Matthew Robinson",
+        "Charlie Thompson",
+        "Aiden Lopez",
+        "Evelyn King",
+        "Ava Martinez",
+        "Alex Green",
+        "Casey Nelson"
+      ],
+      "recommended_foods": [
+        "Candy",
+        "Tea"
+      ],
+      "food_costs": {
+        "Candy": 0.99,
+        "Tea": 1.89
+      },
+      "total_cost": 48.96,
+      "max_satisfaction": 709.0,
+      "total_intimacy": 101,
+      "cost_savings": 1.04,
+      "efficiency_score": 14.48,
+      "host_happiness": 5.6,
+      "num_guests": 17,
+      "food_categories": {
+        "Candy": "dessert",
+        "Tea": "drink"
+      }
+    },
+    {
+      "guest_list": [
+        "Alexander Young",
+        "Wyatt Johnson",
+        "Penelope Hernandez",
+        "Morgan Taylor",
+        "Aria Adams",
+        "Jordan Thompson",
+        "Alex Smith",
+        "Liam Nelson",
+        "Matthew White",
+        "Henry Allen",
+        "Matthew Robinson",
+        "Charlie Thompson",
+        "Aiden Lopez",
+        "Evelyn King",
+        "Ava Martinez",
+        "Alex Green",
+        "Casey Nelson"
+      ],
+      "recommended_foods": [
+        "Candy",
+        "Tea"
+      ],
+      "food_costs": {
+        "Candy": 0.99,
+        "Tea": 1.89
+      },
+      "total_cost": 48.96,
+      "max_satisfaction": 721.0,
+      "total_intimacy": 97,
+      "cost_savings": 1.04,
+      "efficiency_score": 14.73,
+      "host_happiness": 5.58,
+      "num_guests": 17,
+      "food_categories": {
+        "Candy": "dessert",
+        "Tea": "drink"
+      }
+    }
+  ]
+}

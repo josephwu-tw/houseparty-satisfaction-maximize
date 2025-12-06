@@ -1,87 +1,396 @@
-# **Maximizing House Party Hosting Satisfaction**
+# 🎉 House Party Optimizer
 
-**Creators:** Chen-Yen Wu, Jinghong Yang, Yuting Wan  
+A Python application that optimizes house party planning by balancing guest satisfaction, budget constraints, and social intimacy using combinatorial optimization.
+
+## Contributors
+
+**Chen-Yen Wu, Jinghong Yang, Yuting Wan**
+
 **Python Version:** 3.11
 
-## **Project Summary**
-### **Problem Definition:**
-	  
-Joseph \-  
-When hosting a house party, the host might need to consider which type of snacks to prepare and how many to purchase within a limited budget. Besides, each friend has a different level of intimacy with the host. Therefore, we decided to create a tool to help people plan their house party.
+## 📋 Table of Contents
 
-Yuting \-  
-	This project applies dynamic programming into a real-life house party scenario, making the learned algorithm both fun and practical. We simulate a budget-constrained optimization problem, different intimacy friends with different weights. By selecting a set of snacks to maximize overall satisfaction. It resembles an extended version of the 0-1 knapsack problem.
+- [Overview](#overview)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Algorithm Design](#algorithm-design)
+- [Project Structure](#project-structure)
+- [Data Models](#data-models)
 
-Jinghong \-  
-	In the real life scenario, the host may be concerned about whether the preparation of the house party is enough to make the guests satisfied,  so we are going to make an application which can help people to avoid such disappointment due to this reason. Also, this is a good way for the host to get to know the preferences of others.
+## Overview
 
-### **Scope:**
+When hosting a house party, hosts face a multi-objective optimization problem: selecting the right guests, choosing menu items that satisfy everyone's preferences, and staying within budget—all while maximizing overall party satisfaction.
 
-Our dataset features several notable characteristics:  
-	Friend \-
+This project applies **combinatorial optimization** to solve this real-world problem, resembling an extended version of the **0-1 Knapsack Problem** with additional constraints and multiple objectives.
 
-* name  
-* preference for each type of food (1-5)  
-* intimacy Level (1-10)
+### Problem Definition
 
-	Food \-
+Given:
+- A set of friends with food preferences (1-5 rating) and intimacy levels (1-10)
+- A set of food/drink items with costs
+- A budget constraint
+- Menu composition rules (1-3 foods + 1-2 drinks)
 
-* type  
-* cost per unit
+Find:
+- Optimal guest list
+- Optimal menu selection
+- Maximum host happiness score
+
+## Features
+
+- **Smart Optimization**: Multi-objective optimization balancing satisfaction, cost savings, and intimacy
+- **Flexible Constraints**: Configurable menu composition (1-3 foods + 1-2 drinks)
+- **Data Management**: Full CRUD operations for friends and food items
+- **CSV Import/Export**: Bulk data operations with pandas
+- **Random Data Generator**: Generate realistic test datasets
+- **Data Visualization**: Matplotlib/Seaborn charts for analysis
+- **Interactive CLI**: User-friendly menu-driven interface
+
+## Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/houseparty-optimizer.git
+cd houseparty-optimizer
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+### Requirements
+
+```
+numpy>=1.24.0
+pandas>=2.0.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+```
+
+## Usage
+
+```bash
+python main.py
+```
+
+### Quick Start
+
+1. **Run optimization** (Option 1): Enter budget, max guests, and preference weights
+2. **View recommendations**: Select from top 5 optimized party configurations
+3. **Export results**: Save recommendations as JSON
+
+### Example Session
+
+```
+🎉 HOUSE PARTY OPTIMIZER 🎉
+
+Enter your budget ($): 50
+
+Guest Selection:
+  Maximum guests [default: 8]: 5
+  → Will consider 1-5 guests
+
+Weights (Press Enter for defaults):
+  Satisfaction (0.4): 
+  Savings (0.2): 
+  Intimacy (0.4): 
+
+Running optimization...
+  [Optimizer] Searching guest counts: 1 to 5
+  [Optimizer] Generated 31 valid recommendations
+
+--- Recommendation #1 ---
+Guests: Mike, Bob, Tom
+Satisfaction: 126.0
+Host Happiness: 4.52
+```
+
+## Algorithm Design
+
+### Why Not Dynamic Programming?
+
+While this problem resembles the 0-1 Knapsack Problem, **classical DP does not apply** to the guest selection phase. Here's why:
+
+#### The Core Issue: Non-Independent Subproblems
+
+In standard 0-1 Knapsack, each item has a **fixed value independent of other selected items**. However, in our problem, the value of inviting a guest **changes based on who else is invited** because the optimal menu changes with different guest combinations. This violates DP's **optimal substructure** requirement.
+
+For DP to work, we need:
+```
+Value(guest_i | guests_selected) = constant
+```
+
+But in reality:
+```
+Value(guest_i | guests_selected) = f(menu_optimization(guests_selected ∪ {guest_i}))
+```
+
+The menu optimization is a **nested optimization** that depends on the full guest combination.
+
+### Our Approach: Multi-Objective Evaluation
+
+We use **exhaustive enumeration** over guest combinations, then evaluate each combination using four key metrics:
+
+```
+ALGORITHM: PartyOptimizer
+
+INPUT: 
+  - friends[]: list of n friends with preferences and intimacy
+  - foods[]: list of food items with costs and categories
+  - budget: maximum spending limit
+  - max_guests: maximum number of guests (k)
+  - weights: (w_s, w_c, w_i) for satisfaction, savings, intimacy
+
+OUTPUT:
+  - recommendations[]: sorted list of (guests, menu, happiness_score)
+
+PROCEDURE Optimize(config):
+    recommendations ← []
+    
+    // Generate all possible guest combinations from size 1 to k
+    // Total combinations = C(n,1) + C(n,2) + ... + C(n,k)
+    FOR size FROM 1 TO max_guests:
+        // C(n, size) = n! / (size! × (n-size)!)
+        FOR guest_combo IN Combinations(friends, size):
+            
+            // Find best menu for this guest combination
+            (satisfaction, menu, cost) ← FindBestMenu(guest_combo, budget)
+            
+            IF menu is not empty:
+                // Calculate total intimacy: sum of all guest intimacy levels
+                total_intimacy ← 0
+                FOR guest IN guest_combo:
+                    total_intimacy ← total_intimacy + guest.intimacy
+                
+                // Calculate cost savings: remaining budget after purchase
+                cost_savings ← budget - cost
+                
+                // Calculate average satisfaction
+                num_guests ← |guest_combo|
+                num_items ← |menu|
+                avg_satisfaction ← satisfaction / (num_guests × num_items)
+                
+                // Calculate host happiness (weighted multi-objective score)
+                happiness ← (w_s × avg_satisfaction) + 
+                            (w_c × cost_savings / 10) + 
+                            (w_i × total_intimacy / 10)
+                
+                recommendations.APPEND((guest_combo, menu, happiness))
+    
+    // Sort by happiness score in descending order
+    RETURN SortByHappiness(recommendations)
 
 
-	Computation Process:
+PROCEDURE FindBestMenu(guests, budget):
+    best_satisfaction ← 0
+    best_menu ← []
+    best_cost ← 0
+    num_guests ← |guests|
+    
+    // Enumerate all valid menu compositions (1-3 foods + 1-2 drinks)
+    FOR num_foods FROM 1 TO min(3, |food_items|):
+        FOR food_combo IN Combinations(food_items, num_foods):
+            FOR num_drinks FROM 1 TO min(2, |drink_items|):
+                FOR drink_combo IN Combinations(drink_items, num_drinks):
+                    
+                    menu ← food_combo ∪ drink_combo
+                    
+                    // Cost = sum of item prices × number of guests
+                    cost ← 0
+                    FOR item IN menu:
+                        cost ← cost + item.cost
+                    cost ← cost × num_guests
+                    
+                    // Check budget constraint
+                    IF cost ≤ budget:
+                        // Calculate total satisfaction
+                        satisfaction ← 0
+                        FOR item IN menu:
+                            FOR guest IN guests:
+                                satisfaction ← satisfaction + guest.preference[item]
+                        
+                        // Track best menu
+                        IF satisfaction > best_satisfaction:
+                            best_satisfaction ← satisfaction
+                            best_menu ← menu
+                            best_cost ← cost
+    
+    RETURN (best_satisfaction, best_menu, best_cost)
+```
 
-1. Given a budget limit  
-2. Calculate the guest's satisfaction level with related food preferences  
-3. Find the combinations of total cost and the host’s happiness (by level of intimacy)  
-4. Evaluate the combinations by measuring happiness and cost savings  
-5. Provide a recommended guest list and food preparation.
+---
 
-### **Description:**
+### Evaluation Metrics & Mathematical Formulas
 
-1. Data collecting and cleaning  
-2. Design and test the guest satisfaction calculator  
-3. Design and test the generator of guest lists and intimacy level combinations  
-4. Design the evaluation system of host satisfaction by balancing cost saving and intimacy happiness under different scenarios  
-5. Overall testing and final proposal documenting
+#### 1. Guest Satisfaction
 
-### **Tasks:**
+Total satisfaction is the sum of all preference ratings across all guests and menu items:
 
-We divided the project into three parts, each teammate mainly owner for a different area. We’ll also have group discussions together for each part.
+$S_{total} = \sum_{g \in Guests} \sum_{f \in Menu} P_{g,f}$
 
-Chen-Yen Wu:   
-Responsible for designing and testing the generator of guest lists and intimacy level combinations, and participating in the design and testing of the guest satisfaction calculator.
+Where:
+- $P_{g,f}$ = preference rating (1-5) of guest $g$ for food item $f$
 
-Jinghong Yang:   
-Responsible for participating in the design and testing and the evaluation system of host satisfaction.
+**Average Satisfaction** (normalized to 1-5 scale):
 
-Yuting Wan:   
-Responsible for data collecting, cleaning and participating in guest satisfaction calculator design and test. 
+$S_{avg} = \frac{S_{total}}{|Guests| \times |Menu|}$
 
-### **Course Relation:**
+---
 
-Dynamic Programming  
-It involves breaking the problem into smaller parts. Each time we should decide whether or not to buy a snack, the rest of the problem stays the same in structure. And also it involves building up to the optimal solutions step by step, the best choice at the current point equals the best satisfaction in the previous budget, and plus the extra value this snack brings.   
-Maximize i(satisfaction of snacks)i, subject to icostbudget  
-We use DP’s state definition and transition formula to find the best combination, which is faster than trying out all possibilities with brute-force.
+#### 2. Cost Savings
 
-## **App Design**
+The amount of budget remaining after purchasing the menu:
 
-### **Data Structure Example**
+$C_{savings} = Budget - C_{total}$
 
-Friend List
+Where total cost is:
 
-| Name | Fried Chicken | Chips | Sand-wich | Cookies | Sweeties | Soda | Juice | Black Tea | Intimacy level |
-| :---- | :---- | :---- | :---- | :---- | :---- | :---- | :---- | :---- | :---- |
+$C_{total} = \left( \sum_{f \in Menu} cost_f \right) \times |Guests|$
+
+---
+
+#### 3. Intimacy Level
+
+Total intimacy represents the closeness of relationships with invited guests:
+
+$I_{total} = \sum_{g \in Guests} intimacy_g$
+
+Where $intimacy_g$ is the intimacy level (1-10) for each guest.
+
+---
+
+#### 4. Host Happiness Score
+
+The final **multi-objective weighted score** combining all metrics:
+
+$H = w_s \cdot S_{avg} + w_c \cdot \frac{C_{savings}}{10} + w_i \cdot \frac{I_{total}}{10}$
+
+Where:
+- $w_s$ = satisfaction weight (default: 0.4)
+- $w_c$ = cost savings weight (default: 0.2)
+- $w_i$ = intimacy weight (default: 0.4)
+- Constraint: $w_s + w_c + w_i = 1.0$
+
+The normalization by 10 ensures all components are on comparable scales.
+
+---
+
+### Complete Evaluation Example
+
+**Given:**
+- Guests: {Tom, Bob, Mike} with intimacy levels {7, 8, 9}
+- Menu: {Chips, Candy, Soda} with costs {$2.99, $0.99, $2.49}
+- Budget: $50
+- Weights: (0.4, 0.2, 0.4)
+
+**Calculations:**
+
+| Guest | Chips | Candy | Soda | Row Sum |
+|-------|-------|-------|------|---------|
+| Tom   | 3     | 1     | 5    | 9       |
+| Bob   | 5     | 3     | 4    | 12      |
+| Mike  | 5     | 2     | 5    | 12      |
+
+$S_{total} = 9 + 12 + 12 = 33$
+
+$S_{avg} = \frac{33}{3 \times 3} = 3.67$
+
+$C_{total} = (2.99 + 0.99 + 2.49) \times 3 = \$19.41$
+
+$C_{savings} = 50 - 19.41 = \$30.59$
+
+$I_{total} = 7 + 8 + 9 = 24$
+
+$H = 0.4 \times 3.67 + 0.2 \times \frac{30.59}{10} + 0.4 \times \frac{24}{10}$
+
+$H = 1.47 + 0.61 + 0.96 = 3.04$
+
+---
+
+### Time Complexity Analysis
+
+| Component | Complexity |
+|-----------|------------|
+| Guest combinations | $O(n^k)$ for max_guests = k |
+| Menu combinations | $O(f^3 \cdot d^2)$ |
+| Satisfaction calculation | $O(m \cdot g)$ per menu |
+| **Overall** | $O(n^k \cdot f^3 \cdot d^2)$ |
+
+Where: n = friends, k = max_guests, f = foods, d = drinks
+
+| Friends (n) | k=8 Combinations | Approx. Time |
+|-------------|------------------|--------------|
+| 10          | 45               | < 1 sec      |
+| 20          | 125,970          | ~2 sec       |
+| 30          | 5,852,925        | ~30 sec      |
+| 50          | 536,878,650      | ~15 min      |
+
+## Project Structure
+
+```
+houseparty-optimizer/
+├── main.py                 # Entry point
+├── app.py                  # Application coordinator
+├── core/
+│   ├── __init__.py
+│   ├── config.py           # Configuration constants
+│   ├── models.py           # Data models (Friend, Food, etc.)
+│   ├── optimizer.py        # Optimization engine
+│   └── repositories.py     # Data persistence (JSON)
+├── menus/
+│   ├── __init__.py
+│   ├── base.py             # Base menu class
+│   ├── optimization.py     # Optimization workflow
+│   ├── friends.py          # Friend management
+│   ├── foods.py            # Food management
+│   └── analysis.py         # Data analysis
+├── services/
+│   ├── __init__.py
+│   ├── csv_tools.py        # CSV import/export
+│   ├── data_analysis.py    # Analytics & visualization
+│   └── generator.py        # Random data generator
+├── utils/
+│   ├── __init__.py
+│   └── helpers.py          # Utility functions
+├── data/                   # JSON storage
+└── exports/                # CSV/report exports
+```
+
+## Data Models
+
+### Friend
+| Field | Type | Description |
+|-------|------|-------------|
+| name | string | Friend's name |
+| preferences | dict | Food → Rating (1-5) |
+| intimacy | int | Closeness level (1-10) |
+| dietary_restrictions | list | e.g., ["vegetarian"] |
+
+### Food
+| Field | Type | Description |
+|-------|------|-------------|
+| name | string | Item name |
+| cost | float | Price per person |
+| category | string | main/snack/dessert/drink |
+
+### Sample Data
+
+**Friends:**
+| Name | Fried Chicken | Chips | Sandwich | Cookies | Candy | Soda | Juice | Tea | Intimacy |
+|------|---------------|-------|----------|---------|-------|------|-------|-----|----------|
 | Tom | 5 | 3 | 4 | 2 | 1 | 5 | 3 | 1 | 7 |
 | Ariel | 3 | 2 | 5 | 3 | 4 | 2 | 3 | 4 | 6 |
+| Bob | 4 | 5 | 3 | 4 | 3 | 4 | 2 | 2 | 8 |
 
-Food Price per unit Table
+**Food Prices:**
+| Item | Fried Chicken | Chips | Sandwich | Cookies | Candy | Soda | Juice | Tea |
+|------|---------------|-------|----------|---------|-------|------|-------|-----|
+| Cost | $5.70 | $2.99 | $4.00 | $1.99 | $0.99 | $2.49 | $2.79 | $1.89 |
 
-| Fried Chicken | Chips | Sand-wich | Cookies | Candy | Soda | Juice | Tea |
-| :---- | :---- | :---- | :---- | :---- | :---- | :---- | :---- |
-| 5.7 | 2.99 | 4.0 | 1.99 | 0.99 | 2.49 | 2.79 | 1.89 |
+## License
 
-### **Interface** 
+MIT License - see [LICENSE](LICENSE) for details.
 
+---
+
+*Built for CS 5800 Algorithms @ Northeastern University*
