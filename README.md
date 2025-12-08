@@ -183,10 +183,13 @@ PROCEDURE Optimize(config):
                 num_items ← |menu|
                 avg_satisfaction ← satisfaction / (num_guests × num_items)
                 
+                // Calculate average intimacy
+                avg_intimacy ← total_intimacy / num_guests
+                
                 // Calculate host happiness (weighted multi-objective score)
                 happiness ← (w_s × avg_satisfaction) + 
-                            (w_c × cost_savings / 10) + 
-                            (w_i × total_intimacy / 10)
+                            (w_c × cost_savings / budget) + 
+                            (w_i × avg_intimacy)
                 
                 recommendations.APPEND((guest_combo, menu, happiness))
     
@@ -264,9 +267,13 @@ $C_{total} = \left( \sum_{f \in Menu} cost_f \right) \times |Guests|$
 
 #### 3. Intimacy Level
 
-Total intimacy represents the closeness of relationships with invited guests:
+Total intimacy represents the sum of closeness levels with invited guests:
 
 $I_{total} = \sum_{g \in Guests} intimacy_g$
+
+**Average Intimacy** (used in happiness calculation):
+
+$I_{avg} = \frac{I_{total}}{|Guests|}$
 
 Where $intimacy_g$ is the intimacy level (1-10) for each guest.
 
@@ -276,7 +283,7 @@ Where $intimacy_g$ is the intimacy level (1-10) for each guest.
 
 The final **multi-objective weighted score** combining all metrics:
 
-$H = w_s \cdot S_{avg} + w_c \cdot \frac{C_{savings}}{10} + w_i \cdot \frac{I_{total}}{10}$
+$H = w_s \cdot S_{avg} + w_c \cdot \frac{C_{savings}}{Budget} + w_i \cdot I_{avg}$
 
 Where:
 - $w_s$ = satisfaction weight (default: 0.4)
@@ -284,7 +291,17 @@ Where:
 - $w_i$ = intimacy weight (default: 0.4)
 - Constraint: $w_s + w_c + w_i = 1.0$
 
-The normalization by 10 ensures all components are on comparable scales.
+**Why this formula?**
+
+We use **averaged metrics** rather than totals to ensure fair comparison across different party sizes:
+
+| Metric | Why Average/Ratio? |
+|--------|-------------------|
+| $S_{avg}$ | A party of 3 guests with avg satisfaction 4.5 is better than 8 guests with avg 2.0. Total satisfaction would unfairly favor larger parties. |
+| $C_{savings}/Budget$ | Expressing savings as a ratio (0-1) makes it comparable regardless of budget size. Saving $30 from $50 (60%) is more impressive than saving $30 from $200 (15%). |
+| $I_{avg}$ | A small gathering of close friends (avg intimacy 9) may be preferable to a large party of acquaintances (avg intimacy 4). Total intimacy would always favor more guests. |
+
+This approach allows the optimizer to recommend **quality over quantity** when appropriate, based on user-defined weights.
 
 ---
 
@@ -312,11 +329,11 @@ $C_{total} = (2.99 + 0.99 + 2.49) \times 3 = 19.41$
 
 $C_{savings} = 50 - 19.41 = 30.59$
 
-$I_{total} = 7 + 8 + 9 = 24$
+$I_{avg} = \frac{I_{total}}{|Guests|} = \frac{24}{3} = 8.0$
 
-$H = 0.4 \times 3.67 + 0.2 \times \frac{30.59}{10} + 0.4 \times \frac{24}{10}$
+$H = 0.4 \times 3.67 + 0.2 \times \frac{30.59}{50} + 0.4 \times 8.0$
 
-$H = 1.47 + 0.61 + 0.96 = 3.04$
+$H = 1.47 + 0.12 + 3.20 = 4.79$
 
 ---
 

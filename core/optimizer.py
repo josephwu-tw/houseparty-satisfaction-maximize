@@ -50,14 +50,15 @@ class PartyOptimizer:
         return best_satisfaction, best_menu, best_cost
     
     def calculate_happiness(self, satisfaction: float, savings: float, intimacy: int,
-                           num_guests: int, num_items: int, config: OptimizationConfig) -> float:
+                           num_guests: int, num_items: int, budget: float, config: OptimizationConfig) -> float:
         """Calculate host happiness score."""
         avg_satisfaction = satisfaction / (num_guests * num_items) if (num_guests * num_items) > 0 else 0
+        avg_intimacy = intimacy / num_guests if num_guests > 0 else 0
+        savings_ratio = savings / budget if budget > 0 else 0
         
-        values = np.array([avg_satisfaction, savings / 10, intimacy / 10])
-        weights = np.array([config.satisfaction_weight, config.savings_weight, config.intimacy_weight])
-        
-        return float(np.dot(values, weights))
+        return (config.satisfaction_weight * avg_satisfaction +
+                config.savings_weight * savings_ratio +
+                config.intimacy_weight * avg_intimacy)
     
     def optimize(self, config: OptimizationConfig) -> List[PartyRecommendation]:
         """Generate and evaluate all guest combinations."""
@@ -79,7 +80,7 @@ class PartyOptimizer:
                 intimacy = sum(g.intimacy for g in guests)
                 savings = config.budget - cost
                 efficiency = satisfaction / cost if cost > 0 else 0
-                happiness = self.calculate_happiness(satisfaction, savings, intimacy, len(guests), len(menu), config)
+                happiness = self.calculate_happiness(satisfaction, savings, intimacy, len(guests), len(menu), config.budget, config)
                 
                 recommendations.append(PartyRecommendation(
                     guest_list=[g.name for g in guests],
